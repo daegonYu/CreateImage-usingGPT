@@ -53,8 +53,42 @@
         .icon {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
         }
-        .imageBorder{
-            border: 5px solid #FFC947; 
+
+        .imageBorder {
+            border: 5px solid #FFC947;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #FFC947;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .imgSaveBtt {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.5em;
+            background-color: #FFC947;
+            padding: 10px 30px;
+            border-radius: 10px;
+            border: 5px solid #FFC947;
+            margin-top: 10px;
+            cursor: pointer;
+            color: #FFFFFF;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
         }
     </style>
@@ -66,26 +100,107 @@
     <h3>생성하고 싶은 이모티콘 적어봐</h3>
     <form action="/" method="post">
         <input type="text" name="image_word" placeholder="표현하고 싶은 이모티콘" style="text-align: center" required />
-        <input type="submit" value="이모티콘 생성하기" />
+        <input type="submit" value="이모티콘 생성하기" onclick="generateEmoji()" />
     </form>
 
+    <div class="loader" id="loader" style="display: none; margin-top: 30px;"></div>
 
     {% if result %}
     <div class="result">
         <div id="image_view">
-            <img src="{{ result }}" class="imageBorder" />
+            <img src="{{ result }}" class="imageBorder" id="resultImage" />
         </div>
+        <button onclick="downloadImage()" class="imgSaveBtt">이미지 저장하기</button>
+
+        <!-- <a id="kakaotalk-sharing-btn" href="javascript:;">
+            <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                alt="카카오톡 공유 보내기 버튼" style="margin-top: 10px"/>
+        </a> -->
+
     </div>
     {% endif %}
 
+    <script>
+        function generateEmoji() {
+            var loader = document.getElementById("loader");
+            var image_view = document.getElementById("image_view");
+            loader.style.display = "block";
+            image_view.style.display = "none";
+            // setTimeout(function () {
+            //     loader.style.display = "none";
+            //     image_view.style.display = "block";
+            // }, 2000);
+            var result = "{{ result }}"
+            if (result) {
+                loader.style.display = "none";
+                image_view.style.display = "block";
+            }
+        }
+        function downloadImage() {
+            var resultImage = document.getElementById("resultImage").src;
+            var link = document.createElement('a');
+            link.download = 'emoticon.png';
+            link.href = resultImage;
+            link.click();
+        }
+    </script>
 
-    <!--자바스크립트 이용하여 이미지 불러오기-->
-    <!-- <script>
+    <!-- 카카오 API -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.1.0/kakao.min.js"
+        integrity="sha384-dpu02ieKC6NUeKFoGMOKz6102CLEWi9+5RQjWSV0ikYSFFd8M3Wp2reIcquJOemx"
+        crossorigin="anonymous"></script>
+    <script>
+        Kakao.init('c089c8172def97eb00c07217cae17495'); // 사용하려는 앱의 JavaScript 키 입력
+    </script>
+
+    <script>
+        Kakao.Share.createDefaultButton({
+            container: '#kakaotalk-sharing-btn',
+            objectType: 'feed',
+            content: {
+                title: 'Emoticon Made by me',
+                description: '#내가 만든 #이모티콘',
+                imageUrl:
+                    'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+                link: {
+                    // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+                    mobileWebUrl: 'https://developers.kakao.com',
+                    webUrl: 'https://developers.kakao.com',
+                },
+            },
+            social: {
+                likeCount: 286,
+                commentCount: 45,
+                sharedCount: 845,
+            },
+            buttons: [
+                {
+                    title: '웹으로 보기',
+                    link: {
+                        mobileWebUrl: 'https://developers.kakao.com',
+                        webUrl: 'https://developers.kakao.com',
+                    },
+                },
+                {
+                    title: '앱으로 보기',
+                    link: {
+                        mobileWebUrl: 'https://developers.kakao.com',
+                        webUrl: 'https://developers.kakao.com',
+                    },
+                },
+            ],
+        });
+    </script>
+
+</body>
+
+</html>
+
+<!--자바스크립트 이용하여 이미지 불러오기-->
+<!-- <script>
         const url = "{{ result }}";
         const imageView = document.getElementById("image_view");
         imageView.innerHTML = `<img src="${url}">`;
     </script> -->
 
-</body>
-
-</html>
+<!-- 버튼 누르면 로딩 화면 보이기-->

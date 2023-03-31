@@ -23,8 +23,9 @@ def index():
     if request.method == "POST":
         image_description = request.form["image_word"]
         trans_word = translator.translate(image_description, dest='en')
-        emoji_word = f'Emphasize the lines and remove the color. cute and very simple messenger emoji like a roughly hand-drawn feel, meaning  {trans_word.text}. background color is white. Print it in the center according to the size of the image.'
-
+        emoji_word = f'Emphasize the lines and remove the color. cute and very simple messenger emoji like a roughly hand-drawn feel, meaning {trans_word.text}. background color is white. Print it in the center according to the size of the image.'
+        # 캐리커쳐 느낌의, 대충 손으로 그린 추가하기 -> 별로 재미 없음
+        # emoji_word = f'Draw simple and hand drawn caricature illustration meaning {trans_word.text}. Emphasize the lines and remove the color. cute and very simple messenger emoticon. background color is white. Print it in the center according to the size of the image.'
         # request.form -> 다음과 같은 딕셔너리 형태를 띔, ImmutableMultiDict([('image_word', '강아지')])
         print('프린트',request.form["image_word"], emoji_word) # 프린트 강아지
 
