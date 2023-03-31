@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<head>
+    <title>간단한 이모티콘 생성기</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='cute.png') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+    <style>
+        body {
+            background-color: #FEE7C2;
+        }
+
+        h3 {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 2em;
+            margin-top: 30px;
+        }
+
+        input[type="text"] {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.5em;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 10px;
+            border: none;
+        }
+
+        input[type="submit"] {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.5em;
+            background-color: #FFC947;
+            padding: 10px 30px;
+            border-radius: 10px;
+            border: none;
+            margin-top: 10px;
+            cursor: pointer;
+            color: #FFFFFF;
+        }
+
+        .result {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        #image_view img {
+            width: 256px;
+            height: 256px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+        }
+
+        .icon {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+        }
+        .imageBorder{
+            border: 5px solid #FFC947; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+        }
+    </style>
+</head>
+
+<body>
+
+    <img src="{{ url_for('static', filename='cute.png') }}" class="icon" style="width:200px; height:200px;" />
+    <h3>생성하고 싶은 이모티콘 적어봐</h3>
+    <form action="/" method="post">
+        <input type="text" name="image_word" placeholder="표현하고 싶은 이모티콘" style="text-align: center" required />
+        <input type="submit" value="이모티콘 생성하기" />
+    </form>
+
+
+    {% if result %}
+    <div class="result">
+        <div id="image_view">
+            <img src="{{ result }}" class="imageBorder" />
+        </div>
+    </div>
+    {% endif %}
+
+
+    <!--자바스크립트 이용하여 이미지 불러오기-->
+    <!-- <script>
+        const url = "{{ result }}";
+        const imageView = document.getElementById("image_view");
+        imageView.innerHTML = `<img src="${url}">`;
+    </script> -->
+
+</body>
+
+</html>
