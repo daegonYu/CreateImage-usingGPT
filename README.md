@@ -16,3 +16,8 @@ Open AI, API를 사용하여 카카오톡 이모티콘으로 사용할 수 있�
 
 3) 야생의 피카츄 <br>
 ![image](https://user-images.githubusercontent.com/83442902/229140326-29fb50a9-cd6b-45e1-85c1-084063e31d2a.png)
+
+<br>
+
+4) 강아지 <br>
+![image](https://user-images.githubusercontent.com/83442902/229272926-16ec9c0f-995a-45e9-880f-9f37e791d27c.png)
