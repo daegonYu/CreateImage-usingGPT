@@ -1,6 +1,8 @@
 # CreateImage-usingGPT
 Open AI, API를 사용하여 카카오톡 이모티콘으로 사용할 수 있는 이모티콘 생성 사이트
 
+체험해보기 => http://daegonyu.pythonanywhere.com/
+
 <br>
 
 예시) <br>
@@ -21,3 +23,10 @@ Open AI, API를 사용하여 카카오톡 이모티콘으로 사용할 수 있�
 
 4) 강아지 <br>
 ![image](https://user-images.githubusercontent.com/83442902/229272926-16ec9c0f-995a-45e9-880f-9f37e791d27c.png)
+
+<br>
+
+### 음성 인식 검색 기능 추가 <br>
+
+5) 원숭이 <br>
+![image](https://user-images.githubusercontent.com/83442902/229353395-789594af-3eb4-4746-953f-8aa2bb0a73c8.png)
