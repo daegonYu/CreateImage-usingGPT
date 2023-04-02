@@ -36,6 +36,18 @@
             color: #FFFFFF;
         }
 
+        button[type="button"] {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.5em;
+            background-color: #4CAF50;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 10px;
+            margin-top: 10px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
         .result {
             display: flex;
             flex-direction: column;
@@ -99,9 +111,12 @@
     <img src="{{ url_for('static', filename='cute.png') }}" class="icon" style="width:200px; height:200px;" />
     <h3>생성하고 싶은 이모티콘 적어봐</h3>
     <form action="/" method="post">
-        <input type="text" name="image_word" placeholder="표현하고 싶은 이모티콘" style="text-align: center" required />
+
+        <input type="text" name="image_word" placeholder="표현하고 싶은 이모티콘" style="text-align: center;" required />
+        <button id="voiceButton" type="button" onclick="startVoiceRecognition()">음성 입력</button>
         <input type="submit" value="이모티콘 생성하기" onclick="generateEmoji()" />
     </form>
+
 
     <div class="loader" id="loader" style="display: none; margin-top: 30px;"></div>
 
@@ -136,12 +151,36 @@
                 image_view.style.display = "block";
             }
         }
+
         function downloadImage() {
             var resultImage = document.getElementById("resultImage").src;
             var link = document.createElement('a');
             link.download = 'emoticon.png';
             link.href = resultImage;
             link.click();
+        }
+    </script>
+
+    <script>
+        // 음성 인식 API
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = "ko-KR"; // 인식 언어 설정
+
+        // 음성 인식 시작
+        function startVoiceRecognition() {
+            recognition.start(); // 음성 인식 시작
+        }
+
+        // 음성 인식 결과 처리
+        recognition.onresult = function (event) {
+            // 인식된 음성을 텍스트로 변환하여 input에 채워줌
+            const input = document.querySelector('input[name="image_word"]');
+            input.value = event.results[0][0].transcript;
+
+            // Enter 키 이벤트를 발생시켜 폼 제출 -> 작동 안함
+            const enterKeyEvent = new KeyboardEvent("keydown",
+                { 'keyCode': 13, 'which': 13 });
+            input.dispatchEvent(enterKeyEvent);
         }
     </script>
 
