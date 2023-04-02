@@ -1,7 +1,7 @@
 import os
 import openai
 from flask import Flask, redirect, render_template, request, url_for
-
+import random
 import googletrans
 
 
@@ -18,7 +18,7 @@ translator = googletrans.Translator()
 @app.route("/", methods=("GET", "POST"))
 def index():
     result = None
-    mood_color = None
+    funny_word = random.choice(["우끼끼","꼬물꼬물", "휘리릭", "쪼르륵", "콩닥콩닥", "바글바글", "도닥도닥", "촉촉", "쑥쑥", "슥슥", "와글와글", "둥실둥실", "찰랑찰랑", "우물쭈물"])
 
     if request.method == "POST":
         image_description = request.form["image_word"]
@@ -27,7 +27,7 @@ def index():
         # 캐리커쳐 느낌의, 대충 손으로 그린 추가하기 -> 별로 재미 없음
         # emoji_word = f'Draw simple and hand drawn caricature illustration meaning {trans_word.text}. Emphasize the lines and remove the color. cute and very simple messenger emoticon. background color is white. Print it in the center according to the size of the image.'
         # request.form -> 다음과 같은 딕셔너리 형태를 띔, ImmutableMultiDict([('image_word', '강아지')])
-        print('프린트',request.form["image_word"], emoji_word) # 프린트 강아지
+        print('프린트 :',request.form["image_word"], emoji_word) # 프린트 강아지
 
         response = openai.Image.create(
             prompt=emoji_word,
@@ -35,8 +35,20 @@ def index():
             size="256x256"
         )
 
-        print(response)
+        # print(response)
         result = response.data[0].url
+
+        # 의성어 표현 -> 이해가 안되서 노잼
+        # completion = openai.ChatCompletion.create(
+        #     model="gpt-3.5-turbo",
+        #     messages=[
+        #             {"role": "system", "content": "You are the funniest man and the greatest comedian. Therefore, whatever I say, express it in one funny word. For example: Whoops!, Pungping, Hehe, Mmm"},
+        #             {"role": "user", "content": f'{trans_word}'},
+        #         ]
+        # )
+
+        # trans_word = translator.translate(completion.choices[0].message.content, dest='ko').text
+        # print(trans_word)
 
 
         # 분위기에 맞는 컬러 설정 -> 색이 항상 같아서 취소
@@ -56,5 +68,5 @@ def index():
         # print('분위기 색:', mood_color)
 
 
-    return render_template("index.html", result=result)
+    return render_template("index.html", result=result, funny_word=funny_word)
 

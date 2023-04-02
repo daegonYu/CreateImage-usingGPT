@@ -126,6 +126,7 @@
             <img src="{{ result }}" class="imageBorder" id="resultImage" />
         </div>
         <button onclick="downloadImage()" class="imgSaveBtt">이미지 저장하기</button>
+        <button id="speakButton" type="button">의성어 듣기(Beta)</button>
 
         <!-- <a id="kakaotalk-sharing-btn" href="javascript:;">
             <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
@@ -182,6 +183,24 @@
                 { 'keyCode': 13, 'which': 13 });
             input.dispatchEvent(enterKeyEvent);
         }
+    </script>
+    
+    <script>
+        // 의성어 버튼
+        const speakButton = document.querySelector('#speakButton');
+
+        // 음성 메시지 출력 함수
+        function speak(message) {
+            const utterance = new SpeechSynthesisUtterance(message);
+            utterance.rate = 1.5; // 출력 속도 조정 (기본값: 1.0)
+            utterance.pitch = 2; // 음조 조정 (기본값: 1.0)
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // 버튼 클릭 시 "안녕하세요" 음성 출력
+        speakButton.addEventListener('click', () => {
+            speak('{{ funny_word }}');
+        });
     </script>
 
     <!-- 카카오 API -->
