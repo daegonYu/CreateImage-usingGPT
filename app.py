@@ -18,7 +18,7 @@ translator = googletrans.Translator()
 @app.route("/", methods=("GET", "POST"))
 def index():
     result = None
-    funny_word = random.choice(["우끼끼","꼬물꼬물", "휘리릭", "쪼르륵", "콩닥콩닥", "바글바글", "도닥도닥", "촉촉", "쑥쑥", "슥슥", "와글와글", "둥실둥실", "찰랑찰랑", "우물쭈물"])
+    funny_word = random.choice(["누구도 날 막지 못해!", "날 선택해줄 줄은 정말 몰랐어", "현명한 선택이야.", "시스템 가동 준비 완료.",  "이 사껀은 내가 맡죠.", "상황 파악 끝?", "문도!", "내 솜씨를 제대로 보여줄 시간이군." , "정의의 전장으로" , "니가 사는거라면, 나도 끼지!",  "정말 현명한 선택이에요!"])
 
     if request.method == "POST":
         image_description = request.form["image_word"]

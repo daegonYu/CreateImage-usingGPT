@@ -142,15 +142,16 @@
             var image_view = document.getElementById("image_view");
             loader.style.display = "block";
             image_view.style.display = "none";
-            // setTimeout(function () {
-            //     loader.style.display = "none";
-            //     image_view.style.display = "block";
-            // }, 2000);
-            var result = "{{ result }}"
-            if (result) {
+            setTimeout(function () {
                 loader.style.display = "none";
                 image_view.style.display = "block";
-            }
+            }, 5000);
+            // 결과창이 나오면 이미지를 보여준다. 대신 두번째 클릭시 로딩 화면 안보임..
+            // var result = "{{ result }}"
+            // if (result) {
+            //     loader.style.display = "none";
+            //     image_view.style.display = "block";
+            // }
         }
 
         function downloadImage() {
@@ -192,8 +193,8 @@
         // 음성 메시지 출력 함수
         function speak(message) {
             const utterance = new SpeechSynthesisUtterance(message);
-            utterance.rate = 1.5; // 출력 속도 조정 (기본값: 1.0)
-            utterance.pitch = 2; // 음조 조정 (기본값: 1.0)
+            utterance.rate = 1; // 출력 속도 조정 (기본값: 1.0)
+            utterance.pitch = 1; // 음조 조정 (기본값: 1.0)
             window.speechSynthesis.speak(utterance);
         }
 
